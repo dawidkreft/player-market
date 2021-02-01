@@ -1,0 +1,21 @@
+server:
+  port: 9080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: transfer
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2

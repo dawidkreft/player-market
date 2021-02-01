@@ -1,0 +1,443 @@
+openapi: 3.0.0
+info:
+  title: Player Open Api Rest Controller
+  description: Player Open Api Rest Controller
+  version: 1.0.0
+servers:
+  - url: 'localhost:9080/api'
+paths:
+  '/players':
+    get:
+      summary: Get all players
+      operationId: getPlayers
+      parameters:
+        - in: query
+          name: sizeOnPage
+          description: amount elements on page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 25
+        - in: query
+          name: page
+          description: number of page
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlayerDto'
+    post:
+      summary: save new player
+      operationId: savePlayer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerDto'
+        '400':
+          description: Player Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: update  player
+      operationId: updatePlayer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerDto'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerDto'
+        '400':
+          description: Player Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/players/{id}':
+    get:
+      summary: Get player
+      operationId: getPlayer
+      parameters:
+        - in: path
+          name: id
+          description: Unique id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerDto'
+        '400':
+          description: Player Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: delete player
+      operationId: removePlayer
+      parameters:
+        - in: path
+          name: id
+          description: Unique id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Player was delete
+        '400':
+          description: Player Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/football-players':
+    get:
+      summary: Get all football players
+      operationId: getFootballPlayers
+      parameters:
+        - in: query
+          name: sizeOnPage
+          description: amount elements on page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 25
+        - in: query
+          name: page
+          description: number of page
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FootballPlayerDto'
+    post:
+      summary: save new fotball player
+      operationId: saveFootballPlayer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FootballPlayerDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FootballPlayerDto'
+        '400':
+          description: Player Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: update footballplayer
+      operationId: updateFootballPlayer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FootballPlayerDto'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FootballPlayerDto'
+        '400':
+          description: Player Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/football-players/{id}':
+    get:
+      summary: Get football player
+      operationId: getFootballPlayer
+      parameters:
+        - in: path
+          name: id
+          description: Unique id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FootballPlayerDto'
+        '400':
+          description: Player Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: delete player
+      operationId: removeFootballPlayer
+      parameters:
+        - in: path
+          name: id
+          description: Unique id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Player was delete
+        '400':
+          description: Player Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/football-players/{id}/transfer/{teamId}/fee':
+    get:
+      summary: Get football player transfer fee
+      operationId: getFootballPlayerTransferFee
+      parameters:
+        - in: path
+          name: id
+          description: Unique id of football player
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: teamId
+          description: Unique id of team
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferFeeDto'
+        '400':
+          description: Player Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/teams':
+    get:
+      summary: Get all player teams
+      operationId: getTeams
+      parameters:
+        - in: query
+          name: ownerId
+          description: identifier of owner
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: sizeOnPage
+          description: amount elements on page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 25
+        - in: query
+          name: page
+          description: number of page
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamDto'
+    post:
+      summary: save new team
+      operationId: saveTeam
+      parameters:
+        - in: query
+          name: ownerId
+          description: identifier of owner
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamDto'
+        '400':
+          description: Player Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/teams/{id}':
+    delete:
+      summary: delete team
+      operationId: removeTeam
+      parameters:
+        - in: path
+          name: id
+          description: Unique id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Team was delete
+        '400':
+          description: Team Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    PlayerDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    FootballPlayerDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        yearOfBirth:
+          type: integer
+        dateOfStartCareer:
+          type: string
+          format: date-time
+    TeamDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        owner:
+          $ref: '#/components/schemas/PlayerDto'
+        players:
+          type: array
+          items:
+            $ref: '#/components/schemas/FootballPlayerDto'
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+    TransferFeeDto:
+      type: object
+      properties:
+        footballPlayer:
+          $ref: '#/components/schemas/FootballPlayerDto'
+        destinationTeam:
+          $ref: '#/components/schemas/TeamDto'
+        transferFee:
+          type: number
+          format: double
+        teamCommision:
+          type: number
+          format: double
+        contractFee:
+          type: number
+          format: double
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+    CurrencyEnum:
+      description: Type of currency
+      type: string
+      enum:
+        - USD
+        - EUR
+        - GBP
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message

@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: proxy-player-market
+zuul:
+  routes:
+    transfer:
+      path: /api/**
+      url: http://localhost:9080/api/
